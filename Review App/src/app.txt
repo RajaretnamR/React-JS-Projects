@@ -1,0 +1,57 @@
+// This is my 1st coding in React :
+
+import React from 'react'
+
+const App = () => {
+
+
+  const name ="Raja retnam";
+  const age = 19;
+
+  const users = [
+
+    {id:1, text:"Raja retnam"},
+    {id:2, text:"Ragul"},
+    {id:3, text:"Varshini"},
+    {id:4, text:"Akash"},
+  ];
+
+  const showUsers = true;
+
+  const loading = false;
+
+  if(loading){
+    return(
+      <h2>Hi da iam Loading</h2>
+    )
+  }
+ 
+
+      return (
+    <> 
+
+          <h1>My Name is : {name}</h1>
+          <h2>My Age is : {age}</h2>
+
+          {showUsers ?           
+          (
+            <ul>
+                  {
+                    users.map((user) =>  (
+                      <li key={user.id}>{user.text}</li>
+                    ))
+                  }
+              </ul>
+          ) : (null)}
+    </>
+  )
+}
+
+
+
+export default App
+
+
+
+
+
