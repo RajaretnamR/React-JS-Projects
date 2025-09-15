@@ -3,8 +3,11 @@ import Nav from '../Components/Nav'
 import { mockAiMessage } from '../lib/ai'
 import { RotateCcw } from 'lucide-react';
 import Milestones from '../Components/Milestone';
-// import { faGithub } from 'lucide-react';
 import Footer from '../Components/Footer';
+
+
+const milestones = [1, 10, 25, 50, 75, 100, 250, 500, 1000]; // ✅ milestone list
+
 
 const Counter = () => {
   const [count, setCount] = useState(0)
@@ -13,6 +16,8 @@ const Counter = () => {
   const handleInc = () => setCount((count) => count + 1)
   const handleDec = () => setCount((count) => count - 1)
   const handleReset = () => setCount(0)
+
+  const isMilestone = milestones.includes(count);
 
   return (
     <div className="min-h-screen bg-[#0b0f0a] text-white flex flex-col">
@@ -65,12 +70,22 @@ const Counter = () => {
             />
 
           </div>
+
+          {/* Milestone Reached  */}
+          {isMilestone && (
+            <div className="mt-6 p-4 bg-green-800/30 text-green-300 rounded-xl w-full text-center">
+                   🎉 Milestone Reached: {count} 🎉
+              </div>
+          )}
         </div>
+
         <div className='max-w-6xl mx-auto'>
            
           <Milestones count={count} />
-    <Footer />
+          <Footer />
         </div>
+
+
       </div>
 
       
