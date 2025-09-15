@@ -5,7 +5,10 @@ const Tag = ({icon , label}) => {
     <div className='inline-flex items-center gap-2 text-xs px-4 py-2 rounded-full border border-white/10 bg-white/5'>
         <span>{icon}</span>
         <span>{label}</span>
+
     </div>
+
+    
   )
 }
 
