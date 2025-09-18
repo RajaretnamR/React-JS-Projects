@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../Components/Nav'
-import { mockAiMessage } from '../lib/ai'
+import { fetchTextFromAi } from '../lib/ai'
 import { RotateCcw } from 'lucide-react';
 import Milestones from '../Components/Milestone';
 import Footer from '../Components/Footer';
@@ -10,7 +10,21 @@ const milestones = [1, 10, 25, 50, 75, 100, 250, 500, 1000]; // ✅ milestone li
 
 
 const Counter = () => {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
+    const [aiMsg, setAiMsg] = useState("Loading inspiration..."); // AI msg state
+    const [loading, setLoading] = useState(false);
+
+
+  // Whenever count changes → fetch AI msg
+  useEffect(() => {
+    const getAiMsg = async () => {
+      setLoading(true);
+      const msg = await fetchTextFromAi(count);
+      setAiMsg(msg || "AI didn't respond 😢");
+      setLoading(false);
+    };
+    getAiMsg();
+  }, [count]);
 
   // Buttons functions
   const handleInc = () => setCount((count) => count + 1)
@@ -64,7 +78,7 @@ const Counter = () => {
             {/* Input-like Box */}
             <textarea
               readOnly
-              value={mockAiMessage(count)}
+               value={loading ? "⏳ Thinking..." : aiMsg}
               className="w-full bg-[#0b0f0a] text-white/70 px-6 py-4 rounded-xl resize-none"
               rows={2}
             />

@@ -2,20 +2,23 @@ import { Routes , Route } from "react-router-dom"
 import Landing from "./Pages/Landing"
 import Counter from "./Pages/Counter"
 import Notfound from "./Pages/Notfound"
+// import { CounterProvider } from "./Context/GlobalContext"
 
 
 
 
 const App = () => {
   return (
-    <Routes>
 
+    //  <CounterProvider>
+          <Routes>
 
-      <Route path="/" element={ <Landing/> }/>
-      <Route path="/Counter" element= { <Counter/> }/>
-      <Route path="*" element={ <Notfound/> }/>
+          <Route path="/" element={ <Landing/> }/>
+          <Route path="/Counter" element= { <Counter/> }/>
+          <Route path="*" element={ <Notfound/> }/>
 
-    </Routes>
+        </Routes>
+    // </CounterProvider>
   )
 }
 

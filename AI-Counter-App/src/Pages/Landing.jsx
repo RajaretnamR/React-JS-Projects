@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState, useEffect} from 'react'
 import Nav from '../Components/Nav'
 import Tag from '../Components/Tag'
 import { Sparkles } from 'lucide-react';
@@ -6,7 +6,7 @@ import { Zap } from 'lucide-react';
 import { Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CounterCard from '../Components/CounterCard';
-import { milestones, mockAiMessage } from '../lib/ai';
+import { fetchTextFromAi } from '../lib/ai';
 import FeatureBox from '../Components/FeatureBox';
 import Milestones from '../Components/Milestone';
 import Footer from '../Components/Footer';
@@ -16,7 +16,22 @@ const Landing = () => {
 
     
   const [count, setCount] = useState(7);
-  const aiMsg = mockAiMessage(count);
+  const [aiMsg, setAiMsg] = useState("Loading inspiration..."); // ✅ state
+  const [loading, setLoading] = useState(false);
+
+
+    useEffect(() => {
+    const loadMsg = async () => {
+      setLoading(true);
+      const msg = await fetchTextFromAi(count);
+      setAiMsg(msg || "AI didn't respond 😢");
+      setLoading(false);
+    };
+    loadMsg();
+  }, [count]);
+
+
+
   return (
 
     <div className=' min-h-screen  bg-[#0b0f0a] text-white'>
@@ -54,11 +69,10 @@ const Landing = () => {
 
                 <div>
                     <CounterCard 
-                        count={count}
-                        isMilestone={milestones.includes(count)}
-                        aiMsg={aiMsg}
-                        loading={false}
-                        readOnly={false}
+                            count={count}
+                            aiMsg={loading ? "⏳ Thinking..." : aiMsg}  // ✅ no more Promise
+                            isMilestone={false}
+                            loading={loading}
                     />
                 </div>
 
