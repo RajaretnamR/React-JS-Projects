@@ -2,7 +2,7 @@ export const milestones = [5, 10, 25, 50, 75, 100, 250, 500, 1000];
 
 export async function fetchTextFromAi(count) {
 
-      const API_KEY = "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";
+      const API_KEY = "";
 
       if(!API_KEY) {
         return "Missing API Key da... ??"
